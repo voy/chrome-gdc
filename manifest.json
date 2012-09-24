@@ -4,12 +4,13 @@
     "manifest_version": 2,
     "description": "Various helpers for GoodData client development.",
     "background": {
-    	"scripts": ["background.js"]
+    	"scripts": ["lib.js", "omnibox.js", "background.js"]
     },
-    "content_scripts": [{
-        "matches": ["*"],
-        "js": "content_script.js"
-    }],
+    "omnibox": { "keyword" : "gdc" },
+    //"content_scripts": [{
+    //    "matches": ["*://*/*"],
+    //    "js": "content_script.js"
+    //}],
     "permissions": ["contextMenus", "tabs"],
     "icons": {
         "16": "gooddata16.ico"

@@ -1,29 +1,44 @@
-function extractDashboardUri(info, tab) {
-debugger;
-    var url = tab.url;
-    var match = url.match(/(\/gdc.*?)\|/);
+/*var menuItems = [{
+    title: 'View dashboard',
+    onclick: extractDashboardUri
+}, {
+    title: 'Edit dashboard',
+    onclick: extractDashboardUri
+}];
 
-
-    if (match[0]) {
-    }
-    debugger;
-
-    chrome.tabs.create({ url: url });
+function createContextMenu(config) {
+    config.forEach(createContextMenuItem);
 }
 
-console.log('omfg');
+function createContextMenuItem(itemConfig) {
+    chrome.contextMenus.create({
+        title: itemConfig.title,
+        contexts: ['page'],
+        onclick: itemConfig.onclick
+    });
+}
 
-var title = 'View dashboard JSON';
-var id = chrome.contextMenus.create({
-    title: title,
-    contexts: ['page'],
-    onclick: extractDashboardUri
-});
-var title = 'Edit dashboard JSON';
-var id = chrome.contextMenus.create({
-    title: title,
-    contexts: ['page'],
-    onclick: function() {
-        console.log('ehlo');
+function onViewDashboard(info, tab) {
+    var parsedUri = parseUrl(tab);
+    if (!parsedUri.dashboardUri) return;
+
+
+}
+
+function onEditDashboard() {
+}
+
+function parseUrl(info, tab) {
+    var url = tab.url;
+    var dashboardUri = url.match(/(\/gdc.*?)\|/)[1];
+    var siteUrl = url.match(/https?:\/\/(.*?)($|\/|\?)/)[1];
+
+    return {
+        dashboardUri: dashboardUri,
+        siteUrl: siteUrl
     }
-});
+}
+
+// render the context menu and bind event handlers
+createContextMenu(menuItems);
+*/
