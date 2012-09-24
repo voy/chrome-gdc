@@ -1,9 +1,9 @@
-/*var menuItems = [{
+var menuItems = [{
     title: 'View dashboard',
-    onclick: extractDashboardUri
+    onclick: onViewDashboard
 }, {
     title: 'Edit dashboard',
-    onclick: extractDashboardUri
+    onclick: onEditDashboard
 }];
 
 function createContextMenu(config) {
@@ -18,27 +18,40 @@ function createContextMenuItem(itemConfig) {
     });
 }
 
+function createTab(url) {
+    chrome.tabs.create({
+        url: url
+    });
+}
+
 function onViewDashboard(info, tab) {
-    var parsedUri = parseUrl(tab);
-    if (!parsedUri.dashboardUri) return;
-
-
+    var dashboardUrl = getDashboardUrl(info.pageUrl);
+    createTab(dashboardUrl);
 }
 
-function onEditDashboard() {
+function onEditDashboard(info, tab) {
+    var dashboardUrl = getDashboardUrl(info.pageUrl) + '?mode=edit';
+    createTab(dashboardUrl);
 }
 
-function parseUrl(info, tab) {
-    var url = tab.url;
-    var dashboardUri = url.match(/(\/gdc.*?)\|/)[1];
-    var siteUrl = url.match(/https?:\/\/(.*?)($|\/|\?)/)[1];
+function getDashboardUrl(pageUrl) {
+    var siteBase = getSiteBase(pageUrl);
+        dashboardUri = getObjectUri(pageUrl),
+        url = siteBase + dashboardUri;
 
-    return {
-        dashboardUri: dashboardUri,
-        siteUrl: siteUrl
-    }
+    return url;
+}
+
+function getSiteBase(pageUrl) {
+    return pageUrl.match(/(https?:\/\/.*?)($|\/|\?)/)[1];
+}
+
+function getObjectUri(pageUrl) {
+    var re = /(\/gdc.*?)\|/g;
+    var uris = [], match;
+    while (match = re.exec(pageUrl)) uris.push(match[1]);
+    return uris && uris[1];
 }
 
 // render the context menu and bind event handlers
 createContextMenu(menuItems);
-*/

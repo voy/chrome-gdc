@@ -1,16 +1,17 @@
 {
-    "name": "GoodData Developer Extension",
+    "name": "GoodData Dev",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Various helpers for GoodData client development.",
+    "description": "Various helpers for GoodData client development and testing.",
     "background": {
     	"scripts": ["lib.js", "omnibox.js", "background.js"]
     },
     "omnibox": { "keyword" : "gdc" },
-    //"content_scripts": [{
-    //    "matches": ["*://*/*"],
-    //    "js": "content_script.js"
-    //}],
+    "content_scripts": [{
+        "matches": ["*://*/gdc/md/*"],
+        "js": ["jquery-1.8.2.min.js", "content_script.js"],
+        "css": ["content_script.css"]
+    }],
     "permissions": ["contextMenus", "tabs"],
     "icons": {
         "16": "gooddata16.ico"
