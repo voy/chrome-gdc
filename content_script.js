@@ -1,54 +1,45 @@
-var uri = window.location + '';
+function initEditor() {
+    var $textarea = $('textarea').hide();
+    $('<div>', { id: 'aceEditor' }).insertAfter($textarea);
 
-if (uri.indexOf('mode=edit') !== -1) {
-    /*$('textarea').bind('keydown', function(e) {
-      var keyCode = e.keyCode || e.which;
-
-      if (keyCode == 9) {
-        e.preventDefault();
-        var start = $(this).get(0).selectionStart;
-        var end = $(this).get(0).selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
-        $(this).val($(this).val().substring(0, start)
-                    + "    "
-                    + $(this).val().substring(end));
-
-        // put caret at right position again
-        $(this).get(0).selectionStart =
-        $(this).get(0).selectionEnd = start + 1;
-      }
-    });*/
-
-    var $textarea = $('textarea');
-    $('<div>', { id: 'ace' }).insertAfter($textarea);
-    $textarea.hide();
-    var editor = ace.edit('ace');
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/yaml");
-    editor.getSession().setValue($textarea.val());
+    var editor = ace.edit('aceEditor');
+    editor.getSession().setMode("ace/mode/json");
+    editor.getSession().setUseSoftTabs(true);
     editor.getSession().setTabSize(4);
-    //ace.edit(document.querySelector('textarea'));
-    $('body').addClass('editableResource');
-    //$('textarea').attr('wrap', 'off');
-    $('<a>', {
-        href: '#',
-        text: 'Download JSON',
-        click: function() {
-            downloadJSON(function(dashboardJSON) {
-                $('textarea').val(JSON.stringify(dashboardJSON, null, 4));
-                $('#JSON').attr('checked', true);
-            });
-        }
-    }).prependTo('form > .params');
+
+    editor.getSession().on('change', function(){
+        $textarea.val(editor.getSession().getValue());
+    });
+
+    return editor;
 }
 
-function downloadJSON(callback) {
+function downloadJSON() {
     var uri = window.location + '';
     uri = uri.substr(0, uri.indexOf('?'));
 
-    $.ajax({
+    return $.ajax({
         url: uri,
         dataType: 'json'
-    }).done(callback);
+    });
 }
+
+function updateEditor(editor, json) {
+    $('#JSON').attr('checked', true);
+    var jsonStr = JSON.stringify(json, null, 4);
+    editor.getSession().setValue(jsonStr);
+}
+
+function augmentPage() {
+    var uri = window.location + '';
+
+    $('body').addClass('editableResource');
+
+    var editor = initEditor();
+    downloadJSON().done(function(json) {
+        updateEditor(editor, json);
+    });
+}
+
+var uri = window.location + '';
+(uri.indexOf('mode=edit') !== -1) && augmentPage();

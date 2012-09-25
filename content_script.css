@@ -1,5 +1,14 @@
-#ace {
+#aceEditor {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+}
+
+.params .param { float: none; }
+
+.params .param:nth-child(1) fieldset {
     position: relative;
     height: 450px;
-    width: 750px;
 }

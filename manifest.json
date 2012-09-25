@@ -14,7 +14,6 @@
             "ace/ace.js",
             "ace/worker-json.js",
             "ace/mode-json.js",
-            "ace/mode-yaml.js",
             "ace/theme-monokai.js",
             "content_script.js"
         ],
