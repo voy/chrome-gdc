@@ -1,6 +1,5 @@
-.editableResource textarea {
+#ace {
+    position: relative;
     height: 450px;
     width: 750px;
-    font-family: monospace !important;
-    white-space: pre;
 }

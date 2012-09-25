@@ -9,7 +9,15 @@
     "omnibox": { "keyword" : "gdc" },
     "content_scripts": [{
         "matches": ["*://*/gdc/md/*"],
-        "js": ["jquery-1.8.2.min.js", "content_script.js"],
+        "js": [
+            "jquery-1.8.2.min.js",
+            "ace/ace.js",
+            "ace/worker-json.js",
+            "ace/mode-json.js",
+            "ace/mode-yaml.js",
+            "ace/theme-monokai.js",
+            "content_script.js"
+        ],
         "css": ["content_script.css"]
     }],
     "permissions": ["contextMenus", "tabs"],

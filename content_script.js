@@ -20,8 +20,17 @@ if (uri.indexOf('mode=edit') !== -1) {
       }
     });*/
 
+    var $textarea = $('textarea');
+    $('<div>', { id: 'ace' }).insertAfter($textarea);
+    $textarea.hide();
+    var editor = ace.edit('ace');
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/yaml");
+    editor.getSession().setValue($textarea.val());
+    editor.getSession().setTabSize(4);
+    //ace.edit(document.querySelector('textarea'));
     $('body').addClass('editableResource');
-    $('textarea').attr('wrap', 'off');
+    //$('textarea').attr('wrap', 'off');
     $('<a>', {
         href: '#',
         text: 'Download JSON',
