@@ -1,14 +1,13 @@
-function initEditor() {
-    var $textarea = $('textarea').hide();
-    $('<div>', { id: 'aceEditor' }).insertAfter($textarea);
+var CodeMirror = CodeMirror;
 
-    var editor = ace.edit('aceEditor');
-    editor.getSession().setMode("ace/mode/json");
-    editor.getSession().setUseSoftTabs(true);
-    editor.getSession().setTabSize(4);
-
-    editor.getSession().on('change', function(){
-        $textarea.val(editor.getSession().getValue());
+function initEditor(textarea) {
+    var editor = CodeMirror.fromTextArea(textarea, {
+        lineNumbers: true,
+        indentUnit: 4,
+        mode: {
+            name: 'javascript',
+            json: true
+        }
     });
 
     return editor;
@@ -24,22 +23,42 @@ function downloadJSON() {
     });
 }
 
-function updateEditor(editor, json) {
-    $('#JSON').attr('checked', true);
-    var jsonStr = JSON.stringify(json, null, 4);
-    editor.getSession().setValue(jsonStr);
+function addEditLink() {
+    var editUrl = window.location + '';
+    if (editUrl.indexOf('?mode=edit') === -1) editUrl += '?mode=edit';
+    $('<a>', {
+        href: editUrl,
+        text: 'Edit this dashboard'
+    }).insertBefore('pre');
+}
+
+function isViewDashboardPage() {
+    return $('pre').text().indexOf('projectDashboard') !== -1;
 }
 
 function augmentPage() {
-    var uri = window.location + '';
+    isViewDashboardPage() && addEditLink();
 
-    $('body').addClass('editableResource');
+    var textarea = document.querySelector('textarea');
+    textarea.innerText = '';
+    var editor = initEditor(textarea);
 
-    var editor = initEditor();
-    downloadJSON().done(function(json) {
-        updateEditor(editor, json);
-    });
+    if (isEditMode()) {
+        if (!textarea) {
+            addEditLink();
+            return;
+        }
+
+        downloadJSON().done(function(json) {
+            editor.setValue(JSON.stringify(json, null, 4));
+            $('#JSON').attr('checked', true).parent('fieldset').hide();
+        });
+    }
 }
 
-var uri = window.location + '';
-(uri.indexOf('mode=edit') !== -1) && augmentPage();
+function isEditMode() {
+    var uri = window.location + '';
+    return uri.indexOf('mode=edit') !== -1;
+}
+
+augmentPage();

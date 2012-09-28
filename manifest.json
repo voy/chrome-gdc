@@ -11,13 +11,11 @@
         "matches": ["*://*/gdc/md/*"],
         "js": [
             "jquery-1.8.2.min.js",
-            "ace/ace.js",
-            "ace/worker-json.js",
-            "ace/mode-json.js",
-            "ace/theme-monokai.js",
+            "codemirror/codemirror.js",
+            "codemirror/javascript.js",
             "content_script.js"
         ],
-        "css": ["content_script.css"]
+        "css": ["content_script.css", "codemirror/codemirror.css"]
     }],
     "permissions": ["contextMenus", "tabs"],
     "icons": {

@@ -1,14 +1,11 @@
-#aceEditor {
-    position: absolute;
-    top: 15px;
-    right: 5px;
-    bottom: 5px;
-    left: 5px;
-}
-
 .params .param { float: none; }
 
 .params .param:nth-child(1) fieldset {
     position: relative;
-    height: 450px;
+}
+
+.params .CodeMirror-scroll {
+    height: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
