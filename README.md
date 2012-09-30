@@ -1,12 +1,12 @@
 # GoodData chrome extension
 
-PLEASE NOTE: this chrome extension is entirely unofficial and no support from GoodData
+PLEASE NOTE: the extension is entirely unofficial and no support from GoodData
 Corporation can be claimed or expected!
 
 ## Feature highlights
 
 * omnibox keyword:
-	* gdc <iframe src="$uri" ...> redirects to export version of dashboard
+	* gdc &lt;iframe src="$uri" ...&gt; redirects to export version of dashboard or simply to the src url
 	* gdc /some/uri redirects to https://localhost/some/uri
 * context menu shortcuts on dashboard:
 	* view or edit dashboard in grey pages
