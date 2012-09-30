@@ -13,9 +13,9 @@
             "jquery-1.8.2.min.js",
             "codemirror/codemirror.js",
             "codemirror/javascript.js",
-            "content_script.js"
+            "dashboard_editor.js"
         ],
-        "css": ["content_script.css", "codemirror/codemirror.css"]
+        "css": ["dashboard_editor.css", "codemirror/codemirror.css"]
     }],
     "permissions": ["contextMenus", "tabs"],
     "icons": {
