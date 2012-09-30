@@ -1,6 +1,6 @@
-# GoodData chrome plugin
+# GoodData chrome extension
 
-PLEASE NOTE: this chrome plugin is entirely unofficial and no support from GoodData
+PLEASE NOTE: this chrome extension is entirely unofficial and no support from GoodData
 Corporation can be claimed or expected!
 
 ## Feature highlights
