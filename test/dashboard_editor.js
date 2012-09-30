@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 
-var DashboardEditor = require('../dashboard_editor.js');
+var DashboardEditor = require('../src/dashboard_editor.js');
 
 
 describe('DashboardEditor', function() {
