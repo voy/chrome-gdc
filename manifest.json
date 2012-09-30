@@ -2,23 +2,30 @@
     "name": "GoodData Dev",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Various helpers for GoodData client development and testing.",
+    "description": "Various helpers for GoodData development and testing",
     "background": {
-    	"scripts": ["lib.js", "omnibox.js", "background.js"]
+    	"scripts": [
+			"src/utils.js",
+			"src/omnibox.js",
+			"src/context_menu.js"
+		]
     },
-    "omnibox": { "keyword" : "gdc" },
     "content_scripts": [{
         "matches": ["*://*/gdc/md/*"],
         "js": [
-            "jquery-1.8.2.min.js",
-            "codemirror/codemirror.js",
-            "codemirror/javascript.js",
-            "dashboard_editor.js"
+            "lib/jquery-1.8.2.min.js",
+            "lib/codemirror/codemirror.js",
+            "lib/codemirror/javascript.js",
+            "src/dashboard_editor.js"
         ],
-        "css": ["dashboard_editor.css", "codemirror/codemirror.css"]
+        "css": [
+			"lib/codemirror/codemirror.css",
+			"css/dashboard_editor.css"
+		]
     }],
+    "omnibox": { "keyword" : "gdc" },
     "permissions": ["contextMenus", "tabs"],
     "icons": {
-        "16": "gooddata16.ico"
+        "16": "images/gooddata16.ico"
     }
 }

@@ -35,7 +35,7 @@ DashboardEditor.prototype = {
     _renderEditLink: function(url) {
         $('<a>', {
             href: url,
-            text: 'Edit this dashboard'
+            text: 'Edit dashboard'
         }).insertBefore('pre');
     },
 
