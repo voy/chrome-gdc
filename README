@@ -1,2 +1,0 @@
- * gdc <iframe src="$uri" ...> redirects to export version of dashboard
- * gdc /some/uri redirects to https://localhost/some/uri
