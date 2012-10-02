@@ -26,6 +26,6 @@
     "omnibox": { "keyword" : "gdc" },
     "permissions": ["contextMenus", "tabs"],
     "icons": {
-        "16": "images/gooddata16.ico"
+        "128": "images/gdicon128.png"
     }
 }
