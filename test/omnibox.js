@@ -38,4 +38,16 @@ describe('omnibox redirection', function() {
         assert.isTrue(omnibox.getResultUrl.calledWithExactly('foo'));
         assert.isTrue(omnibox.navigate.calledWithExactly('bar'));
     });
+
+    describe('jira issue recognizer', function() {
+        var expectedUrl = 'https://jira.gooddata.com/jira/browse/GD-123';
+
+        it('should recognize plain numbers as jira issue id', function() {
+            assert.equal(omnibox.getResultUrl('123'), expectedUrl);
+        });
+
+        it('should recognize prefixed numbers as jira issue id', function() {
+            assert.equal(omnibox.getResultUrl('gd-123'), expectedUrl);
+        });
+    });
 });

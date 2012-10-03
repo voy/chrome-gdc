@@ -18,16 +18,22 @@ Omnibox.prototype = {
     },
 
     getResultUrl: function(text) {
-        var url, matches = text.match(/src="(.*?)"/i);
+        var url,
+            iframeMatch = text.match(/src="(.*?)"/i),
+            iframeUri = iframeMatch && iframeMatch[1],
+            jiraMatch = text.match(/(?:[a-z]+-)?([0-9]+)/i),
+            jiraIssue = (jiraMatch && jiraMatch[1]) ? 'GD-' + jiraMatch[1] : false;
 
         if (text.indexOf('/') === 0) {
             url = 'https://localhost' + text;
-        } else if (matches && matches[1]) {
+        } else if (iframeUri) {
             if (text.indexOf('dashboard.html') !== -1) {
-                url = matches[1] + '&export=1';
+                url = iframeUri + '&export=1';
             } else {
-                url = matches[1];
+                url = iframeUri;
             }
+        } else if (jiraIssue) {
+            return 'https://jira.gooddata.com/jira/browse/' + jiraIssue;
         }
 
         return url;
