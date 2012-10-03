@@ -21,8 +21,7 @@ Omnibox.prototype = {
         var url,
             iframeMatch = text.match(/src="(.*?)"/i),
             iframeUri = iframeMatch && iframeMatch[1],
-            jiraMatch = text.match(/(?:[a-z]+-)?([0-9]+)/i),
-            jiraIssue = (jiraMatch && jiraMatch[1]) ? 'GD-' + jiraMatch[1] : false;
+            jiraMatch = text.match(/([a-z]+-)?([0-9]+)/i);
 
         if (text.indexOf('/') === 0) {
             url = 'https://localhost' + text;
@@ -32,8 +31,11 @@ Omnibox.prototype = {
             } else {
                 url = iframeUri;
             }
-        } else if (jiraIssue) {
-            return 'https://jira.gooddata.com/jira/browse/' + jiraIssue;
+        } else if (jiraMatch && jiraMatch.length === 3) {
+            var jiraPrefix = (jiraMatch[1] || 'GD-').toUpperCase(),
+                jiraIssue  = jiraMatch[2];
+
+            return 'https://jira.gooddata.com/jira/browse/' + jiraPrefix + jiraIssue;
         }
 
         return url;
