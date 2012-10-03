@@ -3,7 +3,7 @@
 PLEASE NOTE: the extension is entirely unofficial and no support from GoodData
 Corporation can be claimed or expected!
 
-[![Build Status](https://secure.travis-ci.org/voy/chrome-gdc.png?branch=master)](https://secure.travis-ci.org/voy/chrome-gdc.png)
+[![Build Status](https://secure.travis-ci.org/voy/chrome-gdc.png?branch=master)](https://secure.travis-ci.org/voy/chrome-gdc)
 
 ## Feature highlights
 
