@@ -1,51 +1,56 @@
-function UrlBuilder() {};
+declare var exports;
 
-UrlBuilder.RE_PARSE = /^(.*?:\/\/.*?)\/.*?s=(.*)/i;
+class UrlBuilder {
+	static RE_PARSE = /^(.*?:\/\/.*?)\/.*?s=(.*)/i;
 
-UrlBuilder.createFromUrl = function(url) {
-    var builder = new UrlBuilder();
-    var matches = url.match(UrlBuilder.RE_PARSE);
-    if (!matches) return builder;
+	prefix: string;
+	projectUri: string;
+	projectMDUri: string;
 
-    builder.prefix = matches[1];
-    builder.projectUri = matches[2].split('|')[0];
-    builder.projectMDUri = builder.getProjectMDUri();
-    return builder;
-};
+	static createFromUrl(url) {
+		var builder = new UrlBuilder();
+		var matches = url.match(UrlBuilder.RE_PARSE);
+		if (!matches) return builder;
 
-UrlBuilder.prototype = {
+		builder.prefix = matches[1];
+		builder.projectUri = matches[2].split('|')[0];
+		builder.projectMDUri = builder.getProjectMDUri();
+		return builder;
+	}
 
-    getEnrichedProjectViewUrl: function() {
+    getEnrichedProjectViewUrl() {
         return this.prefix + this.projectUri + '/view';
-    },
+    }
 
-    getProjectViewUrl: function() {
+    getProjectViewUrl() {
         return this.prefix + this.projectUri;
-    },
+    }
 
-    getProjectEditUrl: function() {
+    getProjectEditUrl() {
         return this.prefix + this.projectUri + '?mode=edit';
-    },
+    }
 
-    getProjectMDUri: function() {
+    getProjectMDUri() {
         return this.projectUri.replace('projects', 'md');
-    },
+    }
 
-    getProjectMDUrl: function() {
+    getProjectMDUrl() {
         return this.prefix + this.projectMDUri;
-    },
+    }
 
-    getValidateProjectUrl: function() {
+    getValidateProjectUrl() {
         return this.prefix + this.projectMDUri + '/validate';
-    },
+    }
 
-    getManageLDMUrl: function() {
+    getManageLDMUrl() {
         return this.prefix + this.projectMDUri + '/ldm/manage';
-    },
+    }
 
-    getTemplatesUrl: function() {
+    getTemplatesUrl() {
         return this.prefix + this.projectMDUri + '/templates';
     }
-};
+}
 
-module.exports = UrlBuilder;
+if (typeof exports !== 'undefined') {
+	exports.UrlBuilder = UrlBuilder;
+}

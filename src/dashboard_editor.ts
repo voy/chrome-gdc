@@ -1,16 +1,27 @@
-function DashboardEditor(window) {
-    if (typeof window !== 'undefined') {
-        this.CodeMirror = window.CodeMirror;
-        this.url = window.location + '';
-    }
+declare var $;
+declare var exports;
 
-    this.editPageQuery = '?mode=edit';
-    this.editLinkRendered = false;
-}
+class DashboardEditor {
 
-DashboardEditor.prototype = {
+	CodeMirror; 
+	editor;
+	textarea;
 
-    render: function() {
+	url: string;
+	editPageQuery: string;
+	editLinkRendered: bool;
+
+	constructor(window) {
+		if (typeof window !== 'undefined') {
+			this.CodeMirror = window.CodeMirror;
+			this.url = window.location + '';
+		}
+
+		this.editPageQuery = '?mode=edit';
+		this.editLinkRendered = false;
+	}
+
+    render() {
         this.renderEditLink();
         this.textarea = this.getTextarea();
         this.editor = this.renderEditor();
@@ -19,32 +30,32 @@ DashboardEditor.prototype = {
             var callback = this.initializeEditor.bind(this);
             this.downloadDashboardJSON(callback);
         }
-    },
+    }
 
-    getTextarea: function() {
+    getTextarea() {
         return document.querySelector('textarea');
-    },
+    }
 
-    renderEditLink: function(text) {
+    renderEditLink() {
         if (!this.shouldRenderEditLink()) return;
 
         var url = this.getDashboardEditPageUrl();
         this._renderEditLink(url);
-    },
+    }
 
-    _renderEditLink: function(url) {
+    _renderEditLink(url) {
         $('<a>', {
             href: url,
             text: 'Edit dashboard'
         }).insertBefore('pre');
-    },
+    }
 
-    shouldRenderEditLink: function() {
+    shouldRenderEditLink() {
         return this.isDashboardViewPage() ||
                 (this.isDashboardEditPage() && !this.getTextarea());
-    },
+    }
 
-    renderEditor: function() {
+    renderEditor() {
         if (!this.textarea) return;
 
         this.textarea.innerText = '';
@@ -56,27 +67,27 @@ DashboardEditor.prototype = {
                 json: true
             }
         });
-    },
+    }
 
-    initializeEditor: function(json) {
+    initializeEditor(json) {
         var jsonStr = JSON.stringify(json, null, 4);
         this.editor.setValue(jsonStr);
         this.setFormatToJSON();
-    },
+    }
 
-    setFormatToJSON: function() {
+    setFormatToJSON() {
         $('#JSON').attr('checked', true).parent('fieldset').hide();
-    },
+    }
 
-    isDashboardEditPage: function() {
+    isDashboardEditPage() {
         return this.url.indexOf(this.editPageQuery) !== -1;
-    },
+    }
 
-    isDashboardViewPage: function() {
+    isDashboardViewPage() {
         return $('pre').text().indexOf('projectDashboard') !== -1;
-    },
+    }
 
-    getDashboardEditPageUrl: function() {
+    getDashboardEditPageUrl() {
         var url = this.url;
 
         if (!this.isDashboardEditPage()) {
@@ -84,19 +95,19 @@ DashboardEditor.prototype = {
         }
 
         return url;
-    },
+    }
 
-    downloadDashboardJSON: function(callback) {
+    downloadDashboardJSON(callback) {
         $.ajax({
             url: this.url,
             dataType: 'json'
         }).done(callback);
     }
 
-};
+}
 
-if (typeof module !== 'undefined') {
-    module.exports = DashboardEditor;
+if (typeof exports !== 'undefined') {
+	exports.foo = DashboardEditor;
 } else {
     var editor = new DashboardEditor(window);
     editor.render();

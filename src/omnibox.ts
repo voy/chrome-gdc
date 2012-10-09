@@ -1,13 +1,14 @@
-function Omnibox() {}
+declare var exports;
+declare var chrome;
 
-Omnibox.prototype = {
+class Omnibox {
 
-    bind: function() {
+    bind() {
         var callback = this.onInputEntered.bind(this);
         chrome.omnibox.onInputEntered.addListener(callback);
-    },
+    }
 
-    navigate: function(url) {
+    navigate(url) {
         chrome.tabs.getSelected(null, function(tab) {
             if (tab.url === 'chrome://newtab/') {
                 chrome.tabs.update(tab.id, { url: url });
@@ -15,9 +16,9 @@ Omnibox.prototype = {
                 chrome.tabs.create({ url: url });
             }
         });
-    },
+    }
 
-    getResultUrl: function(text) {
+    getResultUrl(text) {
         var url,
             iframeMatch = text.match(/src="(.*?)"/i),
             iframeUri = iframeMatch && iframeMatch[1],
@@ -39,20 +40,20 @@ Omnibox.prototype = {
         }
 
         return url;
-    },
+    }
 
     /**
      * When iframe is pasted to omnibox parse our its src attr, append export parameter
      * and navigate to the resulting uri.
      */
-    onInputEntered: function(text) {
+    onInputEntered(text) {
         var url = this.getResultUrl(text);
         url && this.navigate(url);
     }
 };
 
-if (typeof module !== 'undefined') {
-    module.exports = Omnibox;
+if (typeof exports !== 'undefined') {
+    exports.Omnibox = Omnibox;
 } else {
     var omnibox = new Omnibox();
     omnibox.bind();

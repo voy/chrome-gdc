@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
 
-var Omnibox = require('../src/omnibox.js');
+var Omnibox = require('../src/omnibox.js').Omnibox;
 
 describe('omnibox redirection', function() {
     var omnibox;
