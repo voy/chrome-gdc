@@ -9,7 +9,7 @@ class Omnibox {
     }
 
     navigate(url) {
-        chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.getSelected(null, (tab) => {
             if (tab.url === 'chrome://newtab/') {
                 chrome.tabs.update(tab.id, { url: url });
             } else {
