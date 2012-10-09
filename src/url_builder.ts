@@ -1,22 +1,22 @@
 declare var exports;
 
 class UrlBuilder {
-	static RE_PARSE = /^(.*?:\/\/.*?)\/.*?s=(.*)/i;
+    static RE_PARSE = /^(.*?:\/\/.*?)\/.*?s=(.*)/i;
 
-	prefix: string;
-	projectUri: string;
-	projectMDUri: string;
+    prefix: string;
+    projectUri: string;
+    projectMDUri: string;
 
-	static createFromUrl(url) {
-		var builder = new UrlBuilder();
-		var matches = url.match(UrlBuilder.RE_PARSE);
-		if (!matches) return builder;
+    static createFromUrl(url) {
+        var builder = new UrlBuilder();
+        var matches = url.match(UrlBuilder.RE_PARSE);
+        if (!matches) return builder;
 
-		builder.prefix = matches[1];
-		builder.projectUri = matches[2].split('|')[0];
-		builder.projectMDUri = builder.getProjectMDUri();
-		return builder;
-	}
+        builder.prefix = matches[1];
+        builder.projectUri = matches[2].split('|')[0];
+        builder.projectMDUri = builder.getProjectMDUri();
+        return builder;
+    }
 
     getEnrichedProjectViewUrl() {
         return this.prefix + this.projectUri + '/view';
@@ -52,5 +52,5 @@ class UrlBuilder {
 }
 
 if (exports) {
-	exports.UrlBuilder = UrlBuilder;
+    exports.UrlBuilder = UrlBuilder;
 }

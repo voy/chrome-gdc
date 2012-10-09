@@ -2,23 +2,23 @@
 
 class DashboardEditor {
 
-	CodeMirror; 
-	editor;
-	textarea;
+    CodeMirror;
+    editor;
+    textarea;
 
-	url: string;
-	editPageQuery: string;
-	editLinkRendered: bool;
+    url: string;
+    editPageQuery: string;
+    editLinkRendered: bool;
 
-	constructor(window) {
-		if (typeof window !== 'undefined') {
-			this.CodeMirror = window.CodeMirror;
-			this.url = window.location + '';
-		}
+    constructor(window) {
+        if (typeof window !== 'undefined') {
+            this.CodeMirror = window.CodeMirror;
+            this.url = window.location + '';
+        }
 
-		this.editPageQuery = '?mode=edit';
-		this.editLinkRendered = false;
-	}
+        this.editPageQuery = '?mode=edit';
+        this.editLinkRendered = false;
+    }
 
     render() {
         this.renderEditLink();
@@ -107,7 +107,7 @@ class DashboardEditor {
 
 /*if (typeof exports !== 'undefined') {*/
 if (exports) {
-	exports.DashboardEditor = DashboardEditor;
+    exports.DashboardEditor = DashboardEditor;
 } else {
     var editor = new DashboardEditor(window);
     editor.render();
