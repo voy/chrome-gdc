@@ -51,6 +51,6 @@ class UrlBuilder {
     }
 }
 
-if (typeof exports !== 'undefined') {
+if (exports) {
 	exports.UrlBuilder = UrlBuilder;
 }

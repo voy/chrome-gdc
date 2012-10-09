@@ -1,5 +1,4 @@
-declare var $;
-declare var exports;
+/// <reference path="lib.d.ts" />
 
 class DashboardEditor {
 
@@ -106,8 +105,9 @@ class DashboardEditor {
 
 }
 
-if (typeof exports !== 'undefined') {
-	exports.foo = DashboardEditor;
+/*if (typeof exports !== 'undefined') {*/
+if (exports) {
+	exports.DashboardEditor = DashboardEditor;
 } else {
     var editor = new DashboardEditor(window);
     editor.render();

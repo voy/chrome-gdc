@@ -1,20 +1,21 @@
+/// <reference path="test.d.ts" />
 var assert = require('chai').assert;
 var sinon = require('sinon');
 
-var DashboardEditor = require('../src/dashboard_editor.js');
+var DashboardEditor = require('../src/dashboard_editor.js').DashboardEditor;
 
 
-describe('DashboardEditor', function() {
+describe('DashboardEditor', () => {
     var editor;
 
     var dashboardViewUrl = 'https://secure.gooddata.com/gdc/md/FoodMart/obj/42992',
         dashboardEditUrl = 'https://secure.gooddata.com/gdc/md/FoodMart/obj/42992?mode=edit';
 
-    beforeEach(function() {
+    beforeEach(() => {
         editor = new DashboardEditor();
     });
 
-    it('should not initialize editor when it is not present on page', function() {
+    it('should not initialize editor when it is not present on page', () => {
         sinon.stub(editor, 'renderEditLink');
         sinon.stub(editor, 'getTextarea');
         sinon.stub(editor, 'renderEditor').returns(null);
@@ -24,7 +25,7 @@ describe('DashboardEditor', function() {
         assert.isTrue(editor.downloadDashboardJSON.notCalled);
     });
 
-    it('should set itself up from the window object if supplied', function() {
+    it('should set itself up from the window object if supplied', () => {
         editor = new DashboardEditor({
             CodeMirror: 'dummy',
             location: 'http://foo.bar'
@@ -34,7 +35,7 @@ describe('DashboardEditor', function() {
         assert.equal('dummy', editor.CodeMirror);
     });
 
-    it('should render editor and reset it properly', function() {
+    it('should render editor and reset it properly', () => {
         editor.textarea = { innerText: 'some previous content' };
         editor.CodeMirror = { fromTextArea: sinon.spy() };
         editor.renderEditor();
@@ -44,20 +45,20 @@ describe('DashboardEditor', function() {
         assert.isTrue(editor.CodeMirror.fromTextArea.calledWith(editor.textarea));
     });
 
-    it('should be able to tell if url is dashboard edit page', function() {
+    it('should be able to tell if url is dashboard edit page', () => {
         editor.url = dashboardViewUrl;
         assert.isFalse(editor.isDashboardEditPage());
         editor.url = dashboardEditUrl;
         assert.isTrue(editor.isDashboardEditPage());
     });
 
-    it('should render edit link on view page', function() {
+    it('should render edit link on view page', () => {
         sinon.stub(editor, 'isDashboardViewPage').returns(true);
 
         assert.isTrue(editor.shouldRenderEditLink());
     });
 
-    it('should render edit link on edit success page', function() {
+    it('should render edit link on edit success page', () => {
         sinon.stub(editor, 'isDashboardViewPage').returns(false);
         sinon.stub(editor, 'isDashboardEditPage').returns(true);
         sinon.stub(editor, 'getTextarea').returns(null);
@@ -65,7 +66,7 @@ describe('DashboardEditor', function() {
         assert.isTrue(editor.shouldRenderEditLink());
     });
 
-    it('should not render edit link on plain edit page', function() {
+    it('should not render edit link on plain edit page', () => {
         sinon.stub(editor, 'isDashboardViewPage').returns(false);
         sinon.stub(editor, 'isDashboardEditPage').returns(true);
         sinon.stub(editor, 'getTextarea').returns({});
@@ -73,14 +74,14 @@ describe('DashboardEditor', function() {
         assert.isFalse(editor.shouldRenderEditLink());
     });
 
-    it('should be able to construct dashboard edit page url', function() {
+    it('should be able to construct dashboard edit page url', () => {
         editor.url = dashboardViewUrl;
         assert.equal(dashboardEditUrl, editor.getDashboardEditPageUrl());
         editor.url = dashboardEditUrl;
         assert.equal(dashboardEditUrl, editor.getDashboardEditPageUrl());
     });
 
-    it('should initialize dashboard to use JSON', function() {
+    it('should initialize dashboard to use JSON', () => {
         editor.editor = { setValue: sinon.spy() };
         sinon.stub(editor, 'setFormatToJSON');
         editor.initializeEditor({ some: "json" });

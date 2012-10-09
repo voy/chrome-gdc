@@ -52,7 +52,7 @@ class Omnibox {
     }
 };
 
-if (typeof exports !== 'undefined') {
+if (exports) {
     exports.Omnibox = Omnibox;
 } else {
     var omnibox = new Omnibox();
