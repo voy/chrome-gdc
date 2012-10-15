@@ -5,8 +5,8 @@
     "description": "Various helpers for GoodData development and testing",
     "background": {
     	"scripts": [
-			"src/utils.js",
 			"src/omnibox.js",
+			"src/url_builder.js",
 			"src/context_menu.js"
 		]
     },

@@ -1,33 +1,35 @@
-declare var exports;
+/// <reference path="lib.d.ts" />
 
 class UrlBuilder {
     static RE_PARSE = /^(.*?:\/\/.*?)\/.*?s=(.*)/i;
 
     prefix: string;
+    dashboardUri: string;
     projectUri: string;
     projectMDUri: string;
 
-    static createFromUrl(url) {
-        var builder = new UrlBuilder();
+    parseUrl(url) {
         var matches = url.match(UrlBuilder.RE_PARSE);
-        if (!matches) return builder;
+        if (!matches) return;
 
-        builder.prefix = matches[1];
-        builder.projectUri = matches[2].split('|')[0];
-        builder.projectMDUri = builder.getProjectMDUri();
-        return builder;
+        this.prefix = matches[1];
+
+        var parts = matches[2].split('|');
+        this.dashboardUri = parts[2];
+        this.projectUri = parts[0];
+        this.projectMDUri = this.getProjectMDUri();
     }
 
     getEnrichedProjectViewUrl() {
-        return this.prefix + this.projectUri + '/view';
+        return this.prefix + this.dashboardUri + '/view';
     }
 
     getProjectViewUrl() {
-        return this.prefix + this.projectUri;
+        return this.prefix + this.dashboardUri;
     }
 
     getProjectEditUrl() {
-        return this.prefix + this.projectUri + '?mode=edit';
+        return this.prefix + this.dashboardUri + '?mode=edit';
     }
 
     getProjectMDUri() {
@@ -51,6 +53,6 @@ class UrlBuilder {
     }
 }
 
-if (exports) {
+if (typeof exports !== 'undefined') {
     exports.UrlBuilder = UrlBuilder;
 }

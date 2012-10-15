@@ -1,5 +1,4 @@
-declare var exports;
-declare var chrome;
+/// <reference path="lib.d.ts" />
 
 class Omnibox {
 
@@ -52,9 +51,9 @@ class Omnibox {
     }
 };
 
-if (exports) {
-    exports.Omnibox = Omnibox;
-} else {
+if (typeof chrome !== 'undefined') {
     var omnibox = new Omnibox();
     omnibox.bind();
+} else {
+    exports.Omnibox = Omnibox;
 }

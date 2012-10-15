@@ -1,1 +1,1 @@
-var require, exports, $;
+var require, exports, chrome, $;

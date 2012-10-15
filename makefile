@@ -1,20 +1,18 @@
-SRC_FILES = $(shell find src -iname *.ts -not -iname *.d.ts)
-TEST_FILES = $(shell find src -iname *.ts -not -iname *.d.ts)
+SRC_TS = $(shell find src -iname *.ts -not -iname *.d.ts) 
+SRC_JS = $(patsubst %.ts,%.js,$(SRC_TS)) 
 
-all:
-	for f in $(SRC_FILES); do \
-		tsc $$f; \
-	done
+TEST_TS = $(shell find test -iname *.ts -not -iname *.d.ts) 
+TEST_JS = $(patsubst %.ts,%.js,$(TEST_TS)) 
 
-build_test: 
-	for f in $(TEST_FILES); do \
-		tsc $$f; \
-	done
+all: $(SRC_JS) $(TEST_JS)
 
 clean:
 	find src test -iname *.js -delete
 
-test: build_test
-	./node_modules/.bin/mocha --reporter spec
+test: $(SRC_JS) $(TEST_JS)
+	mocha
+
+%.js : %.ts
+	tsc $<
 
 .PHONY: test
